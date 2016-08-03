@@ -1,0 +1,8 @@
+mock==2.0.0
+pdbpp==0.8.3
+pep257==0.7.0
+pep8==1.7.0
+pylint==1.6.4
+pytest==2.9.2
+pytest-cov==2.3.0
+xenon==0.4.0

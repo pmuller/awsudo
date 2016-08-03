@@ -59,4 +59,4 @@ Run tests:
 
 .. code-block:: console
 
-    $ python setup.py test
+    $ make check
