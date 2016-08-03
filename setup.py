@@ -1,6 +1,15 @@
+from os.path import join, dirname
+
 from setuptools import setup
 
-from awsudo import VERSION
+
+def read(filename):
+    with open(join(dirname(__file__), filename)) as fileobj:
+        return fileobj.read()
+
+
+VERSION = [line for line in read('awsudo.py').splitlines()
+           if line.startswith('VERSION = ')][0].split("'")[1]
 
 
 setup(
