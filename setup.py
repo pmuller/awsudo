@@ -17,6 +17,7 @@ setup(
     version=VERSION,
     description='Get temporary credentials for AWS roles.',
     long_description=read('README.rst'),
+    license='Apache License 2.0',
     url='https://github.com/pmuller/awsudo',
     author='Philippe Muller',
     author_email='philippe.muller@gmail.com',
@@ -28,4 +29,11 @@ setup(
     install_requires=['boto3 >= 1.4.0'],
     tests_require=['pytest', 'mock'],
     setup_requires=['pytest-runner'],
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: System Administrators',
+        'Intended Audience :: Developers',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.5',
+    ],
 )
