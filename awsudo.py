@@ -6,7 +6,7 @@ import boto3
 from botocore.exceptions import ProfileNotFound, ClientError
 
 
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 CLI_DESCRIPTION = """\
 Get temporary credentials for a given IAM role.
 
