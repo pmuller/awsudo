@@ -12,8 +12,7 @@ PYTEST_OPTS ?=
 
 .PHONY: clean help \
 	check_pep8 check_pep257 check_pylint check_xenon \
-	check_lint check_test \
-	check_test_report check check_ci \
+	check_lint check_test check_test_report check
 
 
 help:
@@ -25,7 +24,6 @@ help:
 	@echo "check_test         Apply py.test"
 	@echo "check_test_report  Apply py.test and generate full reports"
 	@echo "check              Apply check_lint, check_test"
-	@echo "check_ci           Apply clean, check_lint, check_test_report"
 	@echo "clean              Remove useless temporary files"
 
 
@@ -68,9 +66,6 @@ check_lint: check_pep8 check_pep257 check_pylint check_xenon
 
 
 check: check_lint check_test
-
-
-check_ci: clean check_lint check_test_report
 
 
 clean:
