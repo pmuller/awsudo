@@ -16,6 +16,7 @@ setup(
     name='awsudo',
     version=VERSION,
     description='Get temporary credentials for AWS roles.',
+    long_description=read('README.rst'),
     url='https://github.com/pmuller/awsudo',
     author='Philippe Muller',
     author_email='philippe.muller@gmail.com',
