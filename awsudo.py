@@ -1,3 +1,4 @@
+"""awsudo - get temporary AWS privileges using roles."""
 import sys
 import os
 import argparse
@@ -17,8 +18,7 @@ If not, show the credentials environment variables.
 
 
 def parse_arguments(argv):
-    """Parse CLI arguments.
-    """
+    """Parse CLI arguments."""
     parser = argparse.ArgumentParser(description=CLI_DESCRIPTION)
 
     parser.add_argument('profile_name', help='Name of the AWS profile.')
@@ -33,8 +33,7 @@ def parse_arguments(argv):
 
 
 def get_credentials(profile_name):
-    """Retrieve credentials from AWS.
-    """
+    """Retrieve credentials from AWS."""
     session = boto3.Session(profile_name=profile_name)
     credentials = session.get_credentials()
 
@@ -46,8 +45,7 @@ def get_credentials(profile_name):
 
 
 def main(argv=None):
-    """CLI main entry point.
-    """
+    """CLI main entry point."""
     arguments = parse_arguments(argv)
 
     try:
