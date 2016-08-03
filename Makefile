@@ -12,7 +12,7 @@ PYTEST_OPTS ?=
 
 .PHONY: clean help \
 	check_pep8 check_pep257 check_pylint check_xenon \
-	check_lint check_test check_test_report check
+	check_lint check_test check
 
 
 help:
@@ -21,9 +21,8 @@ help:
 	@echo "check_pylint       Apply pylint checks (code quality)"
 	@echo "check_xenon        Apply xenon checks (code complexity)"
 	@echo "check_lint         Apply pep8, pep257, pylint, xenon"
-	@echo "check_test         Apply py.test"
-	@echo "check_test_report  Apply py.test and generate full reports"
-	@echo "check              Apply check_lint, check_test"
+	@echo "check              Apply check_lint, test"
+	@echo "test               Run tests"
 	@echo "clean              Remove useless temporary files"
 
 
@@ -51,21 +50,15 @@ check_xenon:
 	$(call END_TARGET)
 
 
-check_test:
+test:
 	$(call START_TARGET,Checking tests)
-	@py.test -q -x $(PYTEST_OPTS)
+	@tox
 
-
-check_test_report:
-	$(call START_TARGET,Checking tests)
-	@echo
-	@py.test -vv --cov --cov-report=term-missing --cov-report=html \
-		--cov-report=xml --junit-xml=junit.xml
 
 check_lint: check_pep8 check_pep257 check_pylint check_xenon
 
 
-check: check_lint check_test
+check: check_lint test
 
 
 clean:

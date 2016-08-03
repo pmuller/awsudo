@@ -9,6 +9,9 @@ dist/
 # Testing
 .cache/
 junit.xml
+.tox/
+# virtualenv
+.env/
 # coverage.py
 .coverage
 htmlcov/
