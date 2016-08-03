@@ -2,8 +2,7 @@
 PROJECT_NAME = awsudo
 MODULE = $(PROJECT_NAME).py
 
-# Call these functions before/after each target to maintain a coherent
-# display
+# Call these functions before/after each target to maintain a coherent display
 START_TARGET = @printf "[$(shell date +"%H:%M:%S")] %-40s" "$(1)"
 END_TARGET = @printf "\033[32;1mOK\033[0m\n"
 
