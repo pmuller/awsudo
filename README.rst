@@ -2,11 +2,11 @@ awsudo
 ======
 
 awsudo is a command-line tool that requests temporary credentials from `STS
-<https://docs.aws.amazon.com/fr_fr/STS/latest/APIReference/Welcome.html>`
+<https://docs.aws.amazon.com/fr_fr/STS/latest/APIReference/Welcome.html>`_
 to use an `IAM role
-<https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles.html>`.
+<https://docs.aws.amazon.com/fr_fr/IAM/latest/UserGuide/id_roles.html>`_.
 
-If `MFA <https://aws.amazon.com/iam/details/mfa/>` is enabled,
+If `MFA <https://aws.amazon.com/iam/details/mfa/>`_ is enabled,
 you'll be prompted for the token code.
 
 
