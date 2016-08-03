@@ -1,0 +1,17 @@
+# Python
+*.pyc
+.eggs/
+*.egg-info
+dist/
+# vim
+*.swp
+*.swo
+# Testing
+.cache/
+junit.xml
+# coverage.py
+.coverage
+htmlcov/
+coverage.xml
+# OSX
+.DS_Store
