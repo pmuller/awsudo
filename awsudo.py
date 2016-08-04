@@ -7,7 +7,7 @@ import boto3
 from botocore.exceptions import ProfileNotFound, ClientError
 
 
-VERSION = '0.1.2'
+VERSION = '0.2.0'
 CLI_DESCRIPTION = """\
 Get temporary credentials for a given IAM role.
 
@@ -40,7 +40,7 @@ def get_credentials(profile_name):
     return {
         'AWS_ACCESS_KEY_ID': credentials.access_key,
         'AWS_SECRET_ACCESS_KEY': credentials.secret_key,
-        'AWS_SECURITY_TOKEN': credentials.token,
+        'AWS_SESSION_TOKEN': credentials.token,
     }
 
 

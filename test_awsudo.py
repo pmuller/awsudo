@@ -30,7 +30,7 @@ mfa_serial = arn:aws:iam::1234567890:mfa/foobar
 STDOUT_TEMPLATE = """\
 AWS_ACCESS_KEY_ID={access_key}
 AWS_SECRET_ACCESS_KEY={secret_key}
-AWS_SECURITY_TOKEN={token}
+AWS_SESSION_TOKEN={token}
 """
 
 
@@ -74,7 +74,7 @@ def test_exec(monkeypatch, tmpdir):
     environ_update.assert_called_once_with({
         'AWS_ACCESS_KEY_ID': credentials['access_key'],
         'AWS_SECRET_ACCESS_KEY': credentials['secret_key'],
-        'AWS_SECURITY_TOKEN': credentials['token'],
+        'AWS_SESSION_TOKEN': credentials['token'],
     })
     execlp.assert_called_once_with('executable', 'executable', 'arg1', 'arg2')
 

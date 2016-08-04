@@ -50,7 +50,7 @@ environment variables:
     Enter MFA code:
     AWS_ACCESS_KEY_ID=ASIAJFSDLKJFS3VLA
     AWS_SECRET_ACCESS_KEY=UKvIegRLKJSFLKJFDSLKFJSDLKJ
-    AWS_SECURITY_TOKEN=FQoDYXdzEHIaDONIt4M0O10zRms0ac2.....
+    AWS_SESSION_TOKEN=FQoDYXdzEHIaDONIt4M0O10zRms0ac2.....
 
 
 Or to directly run another executable with credentials defined in its
