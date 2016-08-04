@@ -2,8 +2,10 @@ import sys
 import os
 import errno
 
+import pytest
 from mock import Mock
 import boto3
+from botocore.exceptions import ProfileNotFound, ClientError
 
 import awsudo
 
@@ -75,6 +77,20 @@ def test_exec(monkeypatch, tmpdir):
         'AWS_SECURITY_TOKEN': credentials['token'],
     })
     execlp.assert_called_once_with('executable', 'executable', 'arg1', 'arg2')
+
+
+@pytest.mark.parametrize('exception', (
+    (ProfileNotFound(profile='foo'),),
+    (ClientError({'Error': {}}, 'foo'),),
+))
+def test_boto_errors(exception, monkeypatch):
+    def raise_exception(*args):
+        raise exception
+    monkeypatch.setattr(
+        awsudo, 'get_credentials', Mock(side_effect=raise_exception))
+
+    with pytest.raises(SystemExit):
+        awsudo.main(['foo'])
 
 
 def test_fatal_error(monkeypatch, capsys):
