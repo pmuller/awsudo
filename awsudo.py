@@ -44,6 +44,29 @@ def get_credentials(profile_name):
     }
 
 
+def fatal_error(error, code=-1):
+    """Show an error message then exit with an error code."""
+    sys.stderr.write('Fatal error: {}\n'.format(error))
+    sys.exit(code)
+
+
+def run(credentials, executable, arguments):
+    """Run an executable, passing it temporary credentials."""
+    os.environ.update(credentials)
+
+    try:
+        os.execlp(executable, executable, *arguments)
+    except OSError as error:
+        fatal_error('{}: {}'.format(os.strerror(error.errno), executable))
+
+
+def show_credentials(credentials):
+    """Show temporary credentials as environment variables."""
+    result = '\n'.join(
+        '{}={}'.format(k, v) for k, v in sorted(credentials.items()))
+    sys.stdout.write(result + '\n')
+
+
 def main(argv=None):
     """CLI main entry point."""
     arguments = parse_arguments(argv)
@@ -51,18 +74,13 @@ def main(argv=None):
     try:
         credentials = get_credentials(arguments.profile_name)
     except (ProfileNotFound, ClientError) as exception:
-        sys.stderr.write('Fatal error: {}\n'.format(exception))
-        sys.exit(-1)
+        fatal_error(exception)
 
     if arguments.executable:
-        os.environ.update(credentials)
-        os.execlp(
-            arguments.executable, arguments.executable, *arguments.arguments)
+        run(credentials, arguments.executable, arguments.arguments)
     else:
-        result = '\n'.join(
-            '{}={}'.format(k, v) for k, v in sorted(credentials.items()))
-        sys.stdout.write(result + '\n')
+        show_credentials(credentials)
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     main()

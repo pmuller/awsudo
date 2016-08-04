@@ -1,10 +1,11 @@
 import sys
 import os
+import errno
 
 from mock import Mock
 import boto3
 
-from awsudo import main
+import awsudo
 
 
 CREDENTIALS_FILE_CONTENT = """\
@@ -50,7 +51,7 @@ def setup_test(monkeypatch, tmpdir):
 def test_stdout(monkeypatch, tmpdir, capsys):
     session_cls, get_credentials, credentials = setup_test(monkeypatch, tmpdir)
 
-    main(['foo'])
+    awsudo.main(['foo'])
 
     session_cls.assert_called_once_with(profile_name='foo')
     get_credentials.assert_called_once_with()
@@ -64,7 +65,7 @@ def test_exec(monkeypatch, tmpdir):
     execlp = Mock()
     monkeypatch.setattr(os, 'execlp', execlp)
 
-    main(['bar', 'executable', 'arg1', 'arg2'])
+    awsudo.main(['bar', 'executable', 'arg1', 'arg2'])
 
     session_cls.assert_called_once_with(profile_name='bar')
     get_credentials.assert_called_once_with()
@@ -74,3 +75,27 @@ def test_exec(monkeypatch, tmpdir):
         'AWS_SECURITY_TOKEN': credentials['token'],
     })
     execlp.assert_called_once_with('executable', 'executable', 'arg1', 'arg2')
+
+
+def test_fatal_error(monkeypatch, capsys):
+    exit = Mock()
+    monkeypatch.setattr(sys, 'exit', exit)
+
+    awsudo.fatal_error('foo', 42)
+
+    assert capsys.readouterr()[1] == 'Fatal error: foo\n'
+    exit.assert_called_once_with(42)
+
+
+def test_run_enoent_error(monkeypatch):
+    fatal_error = Mock()
+    monkeypatch.setattr(awsudo, 'fatal_error', fatal_error)
+
+    def raise_oserror_enoent(*args):
+        raise OSError(errno.ENOENT, os.strerror(errno.ENOENT))
+    execlp = Mock(side_effect=raise_oserror_enoent)
+    monkeypatch.setattr(os, 'execlp', execlp)
+
+    awsudo.run({}, 'foobarbaz', [])
+
+    fatal_error.assert_called_once_with('No such file or directory: foobarbaz')
