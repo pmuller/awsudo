@@ -3,3 +3,7 @@ omit =
     test_*
     .env/*
 branch = True
+
+[report]
+exclude_lines =
+    pragma: no cover
