@@ -1,4 +1,4 @@
-"""awsudo - get temporary AWS privileges using roles."""
+"""awsudo - get temporary AWS privileges using IAM roles."""
 import sys
 import os
 import argparse
