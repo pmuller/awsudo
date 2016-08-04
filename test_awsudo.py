@@ -79,13 +79,13 @@ def test_exec(monkeypatch, tmpdir):
     execlp.assert_called_once_with('executable', 'executable', 'arg1', 'arg2')
 
 
-@pytest.mark.parametrize('exception', (
-    (ProfileNotFound(profile='foo'),),
-    (ClientError({'Error': {}}, 'foo'),),
+@pytest.mark.parametrize('exception, exc_args, exc_kwargs', (
+    (ProfileNotFound, tuple(), dict(profile='foo')),
+    (ClientError, ({'Error': {}}, 'foo'), {}),
 ))
-def test_boto_errors(exception, monkeypatch):
+def test_boto_errors(exception, exc_args, exc_kwargs, monkeypatch):
     def raise_exception(*args):
-        raise exception
+        raise exception(*exc_args, **exc_kwargs)
     monkeypatch.setattr(
         awsudo, 'get_credentials', Mock(side_effect=raise_exception))
 
