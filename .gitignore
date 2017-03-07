@@ -3,6 +3,7 @@
 .eggs/
 *.egg-info
 dist/
+build/
 # vim
 *.swp
 *.swo
