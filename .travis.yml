@@ -9,5 +9,5 @@ script:
   - make check_lint
   - py.test -vv --cov awsudo
 after_success:
-  - pip install python-coveralls
-  - coveralls
+  - pip install codecov
+  - codecov
